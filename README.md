@@ -1,6 +1,6 @@
 # path-ends-with [![NPM version](https://badge.fury.io/js/path-ends-with.png)](http://badge.fury.io/js/path-ends-with)
 
-> Does a file path end with the given string?
+> Return `true` if a file path ends with the given string.
 
 ## Install
 Install with [npm](npmjs.org):

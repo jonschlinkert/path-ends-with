@@ -1,7 +1,7 @@
 {
   "name": "path-ends-with",
-  "description": "Does a file path end with the given string?",
-  "version": "0.1.0",
+  "description": "Return `true` if a file path ends with the given string.",
+  "version": "0.1.1",
   "homepage": "https://github.com/jonschlinkert/path-ends-with",
   "author": {
     "name": "Jon Schlinkert",
@@ -20,15 +20,6 @@
       "url": "https://github.com/jonschlinkert/path-ends-with/blob/master/LICENSE-MIT"
     }
   ],
-  "keywords": [
-    "docs",
-    "documentation",
-    "generate",
-    "generator",
-    "markdown",
-    "templates",
-    "verb"
-  ],
   "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
@@ -40,5 +31,16 @@
     "verb": "~0.2.6",
     "chai": "~1.9.1",
     "mocha": "*"
-  }
+  },
+  "keywords": [
+    "path",
+    "file",
+    "segment",
+    "ext",
+    "extension",
+    "extname",
+    "filepath",
+    "end",
+    "ending"
+  ]
 }
