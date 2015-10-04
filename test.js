@@ -5,7 +5,8 @@
  * Licensed under the MIT License
  */
 
-var should = require('should');
+require('mocha');
+require('should');
 var endsWith = require('./');
 
 

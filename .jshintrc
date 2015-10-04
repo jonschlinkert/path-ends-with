@@ -1,7 +1,7 @@
 {
   "esnext": true,
   "boss": true,
-  "curly": true,
+  "curly": false,
   "eqeqeq": true,
   "eqnull": true,
   "immed": true,
@@ -11,12 +11,5 @@
   "node": true,
   "sub": true,
   "undef": true,
-  "unused": true,
-  "globals": {
-    "define": true,
-    "before": true,
-    "after": true,
-    "describe": true,
-    "it": true
-  }
+  "unused": true
 }
