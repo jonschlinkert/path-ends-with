@@ -3,55 +3,62 @@
   "description": "Return `true` if a file path ends with the given string/suffix.",
   "version": "0.2.0",
   "homepage": "https://github.com/jonschlinkert/path-ends-with",
-  "author": {
-    "name": "Jon Schlinkert",
-    "url": "https://github.com/jonschlinkert"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jonschlinkert/path-ends-with.git"
-  },
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/path-ends-with",
   "bugs": {
     "url": "https://github.com/jonschlinkert/path-ends-with/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/jonschlinkert/path-ends-with/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha",
+    "browser": "browserify -e index.js -o browser.js"
+  },
+  "dependencies": {
+    "ends-with": "^0.2.0"
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "^4.0.4",
-    "verb": "^0.2.15"
+    "should": "^4.0.4"
   },
   "keywords": [
+    "directory",
     "end",
     "ending",
     "ends",
     "ends-with",
-    "ext",
-    "extension",
-    "extname",
     "file",
     "filepath",
+    "fp",
     "match",
     "matches",
+    "normalize",
     "path",
     "re",
     "regex",
     "regexp",
     "segment",
-    "suffix"
+    "slash",
+    "slashes",
+    "suffix",
+    "trailing"
   ],
-  "dependencies": {
-    "ends-with": "^0.2.0"
+  "verb": {
+    "related": {
+      "description": "Other useful libraries for working with paths in node.js:",
+      "list": [
+        "contains-path",
+        "ends-with",
+        "is-absolute",
+        "is-relative",
+        "normalize-path",
+        "parse-filepath",
+        "path-segments",
+        "rewrite-ext"
+      ]
+    }
   }
 }
