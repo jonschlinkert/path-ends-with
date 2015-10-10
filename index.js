@@ -4,17 +4,17 @@
  * Module dependencies
  */
 
-var path = require('path');
 var endsWith = require('ends-with');
+var normalize = require('normalize-path');
 
 /**
  * Return true if `filepath` ends with the given `string`
  *
  * @param  {String} `filepath`
- * @param  {String} `str`
+ * @param  {String} `string`
  * @return {Boolean}
  */
 
-module.exports = function(fp, string) {
-  return endsWith(path.normalize(fp), path.normalize(string));
+module.exports = function(fp, str) {
+  return endsWith(normalize(fp, false), normalize(str, false));
 };
