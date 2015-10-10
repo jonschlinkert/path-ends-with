@@ -1,7 +1,7 @@
 {
   "name": "path-ends-with",
   "description": "Return `true` if a file path ends with the given string/suffix.",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "homepage": "https://github.com/jonschlinkert/path-ends-with",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/path-ends-with",
@@ -9,7 +9,9 @@
     "url": "https://github.com/jonschlinkert/path-ends-with/issues"
   },
   "license": "MIT",
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
   "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
@@ -19,7 +21,8 @@
     "browser": "browserify -e index.js -o browser.js"
   },
   "dependencies": {
-    "ends-with": "^0.2.0"
+    "ends-with": "^0.2.0",
+    "normalize-path": "^2.0.0"
   },
   "devDependencies": {
     "mocha": "*",
