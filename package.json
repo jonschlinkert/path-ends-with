@@ -22,11 +22,11 @@
   },
   "dependencies": {
     "ends-with": "^0.2.0",
-    "normalize-path": "^2.0.0"
+    "normalize-path": "^2.1.1"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "^4.0.4"
+    "mocha": "^3.2.0",
+    "should": "^11.2.1"
   },
   "keywords": [
     "directory",
@@ -48,7 +48,8 @@
     "slash",
     "slashes",
     "suffix",
-    "trailing"
+    "trailing",
+    "with"
   ],
   "verb": {
     "related": {

@@ -12,11 +12,11 @@
   ],
   "dependencies": {
     "ends-with": "^0.2.0",
-    "normalize-path": "^2.0.0"
+    "normalize-path": "^2.1.1"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "^4.0.4"
+    "mocha": "^3.2.0",
+    "should": "^11.2.1"
   },
   "keywords": [
     "directory",
@@ -39,5 +39,22 @@
     "slashes",
     "suffix",
     "trailing"
+  ],
+  "version": "0.2.3",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/path-ends-with/issues"
+  },
+  "files": [
+    "index.js"
+  ],
+  "ignore": [
+    "actual",
+    "bower_components",
+    "fixtures",
+    "node_modules",
+    "temp",
+    "test",
+    "test.js",
+    "tmp"
   ]
 }
