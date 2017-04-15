@@ -1,7 +1,7 @@
 {
   "name": "path-ends-with",
   "description": "Return `true` if a file path ends with the given string/suffix.",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "homepage": "https://github.com/jonschlinkert/path-ends-with",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/path-ends-with",
@@ -17,16 +17,15 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha",
-    "browser": "browserify -e index.js -o browser.js"
+    "test": "mocha"
   },
   "dependencies": {
-    "ends-with": "^0.2.0",
+    "ends-with": "^1.0.1",
     "normalize-path": "^2.1.1"
   },
   "devDependencies": {
-    "mocha": "^3.2.0",
-    "should": "^11.2.1"
+    "gulp-format-md": "^0.1.12",
+    "mocha": "^3.2.0"
   },
   "keywords": [
     "directory",
@@ -53,17 +52,23 @@
   ],
   "verb": {
     "related": {
-      "description": "Other useful libraries for working with paths in node.js:",
       "list": [
         "contains-path",
         "ends-with",
-        "is-absolute",
-        "is-relative",
         "normalize-path",
-        "parse-filepath",
-        "path-segments",
-        "rewrite-ext"
+        "unixify"
       ]
+    },
+    "toc": false,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "lint": {
+      "reflinks": true
     }
   }
 }
