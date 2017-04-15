@@ -43,8 +43,8 @@ module.exports = function(filepath, substr, allowPartialMatch) {
     // since partial matches were not enabled, we can
     // only consider this a match if the next character
     // is a dot or a slash
-    var slen = substr.length;
-    var next = filepath.slice(-(slen + 1), -slen);
+    var idx = filepath.length - substr.length;
+    var next = filepath.charAt(idx - 1);
     return next === '.' || next === '/';
   }
 
