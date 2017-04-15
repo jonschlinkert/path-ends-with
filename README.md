@@ -1,19 +1,27 @@
-# path-ends-with [![NPM version](https://badge.fury.io/js/path-ends-with.svg)](http://badge.fury.io/js/path-ends-with)  [![Build Status](https://travis-ci.org/jonschlinkert/path-ends-with.svg)](https://travis-ci.org/jonschlinkert/path-ends-with)
+# path-ends-with [![NPM version](https://img.shields.io/npm/v/path-ends-with.svg?style=flat)](https://www.npmjs.com/package/path-ends-with) [![NPM monthly downloads](https://img.shields.io/npm/dm/path-ends-with.svg?style=flat)](https://npmjs.org/package/path-ends-with) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/path-ends-with.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/path-ends-with)
 
 > Return `true` if a file path ends with the given string/suffix.
 
 ## Install
 
-Install with [npm](https://www.npmjs.com/)
+Install with [npm](https://www.npmjs.com/):
 
 ```sh
-$ npm i path-ends-with --save
+$ npm install --save path-ends-with
 ```
 
-Install with [bower](http://bower.io/)
+Install with [yarn](https://yarnpkg.com):
 
 ```sh
-$ bower install path-ends-with --save
+$ yarn add path-ends-with
+```
+
+## Install
+
+Install with [bower](https://bower.io/)
+
+```sh
+$ bower install path-ends-with
 ```
 
 ## Usage
@@ -21,65 +29,116 @@ $ bower install path-ends-with --save
 ```js
 var endsWith = require('path-ends-with');
 
-endsWith('foo\\bar\\baz\\', '/');
-//=> true
-endsWith('foo\\bar\\baz\\', '\\');
-//=> true
-endsWith('foo/bar/baz/', '/');
-//=> true
-endsWith('foo/bar/baz', 'baz');
-//=> true
-endsWith('foo/bar/baz', 'bar/baz');
-//=> true
-endsWith('foo\\bar\\baz.md', 'baz.md');
-//=> true
-endsWith('foo\\bar\\baz.md', '.md');
-//=> true
-endsWith('foo\\bar\\baz.md', 'bar/baz.md');
-//=> true
-endsWith('foo\\bar\\baz.md', '/');
-//=> false
-endsWith('foo\\bar\\baz.md', 'baz');
-//=> false
+// true
+endsWith('foo/bar/baz', 'bar/baz');  //=> true
+endsWith('foo/bar/baz', 'baz');      //=> true
+endsWith('foo/bar/baz/', '/');       //=> true
+
+// works with windows paths
+endsWith('foo\\bar\\baz.md', '.md');         //=> true
+endsWith('foo\\bar\\baz.md', 'bar/baz.md');  //=> true
+endsWith('foo\\bar\\baz.md', 'bar\\baz.md'); //=> true
+endsWith('foo\\bar\\baz.md', 'baz.md');      //=> true
+endsWith('foo\\bar\\baz\\', '/');            //=> true
+endsWith('foo\\bar\\baz\\', '\\');           //=> true
+
+// false (mismatch)
+endsWith('foo/bar/baz.md', '/');   //=> false
+endsWith('foo/bar/baz.md', 'baz'); //=> false
+
+// false (partial match)
+endsWith('foo/bar/bazqux', 'qux');   //=> false
 ```
 
-## Related
+**More about "partial matches"**
 
-Other useful libraries for working with paths in node.js:
+It's assumed that you want to match a complete file name or extension (or some number of slash-delimited path segments, etc). In which case a substring that matches part of a folder or file name should not be considered a match.
 
-* [contains-path](https://www.npmjs.com/package/contains-path): Return true if a file path contains the given path. | [homepage](https://github.com/jonschlinkert/contains-path)
-* [ends-with](https://www.npmjs.com/package/ends-with): Returns `true` if the given `string` or `array` ends with `suffix` using strict equality for… [more](https://www.npmjs.com/package/ends-with) | [homepage](https://github.com/jonschlinkert/ends-with)
-* [is-absolute](https://www.npmjs.com/package/is-absolute): Return true if a file path is absolute. | [homepage](https://github.com/jonschlinkert/is-absolute)
-* [is-relative](https://www.npmjs.com/package/is-relative): Returns `true` if the path appears to be relative. | [homepage](https://github.com/jonschlinkert/is-relative)
-* [normalize-path](https://www.npmjs.com/package/normalize-path): Normalize file path slashes to be unix-like forward slashes. Also condenses repeat slashes to a… [more](https://www.npmjs.com/package/normalize-path) | [homepage](https://github.com/jonschlinkert/normalize-path)
-* [parse-filepath](https://www.npmjs.com/package/parse-filepath): Parse a filepath into an object. Falls back on the native node.js `path.parse` method if… [more](https://www.npmjs.com/package/parse-filepath) | [homepage](https://github.com/jonschlinkert/parse-filepath)
-* [path-segments](https://www.npmjs.com/package/path-segments): Get n specific segments of a file path, e.g. first 2, last 3, etc. | [homepage](https://github.com/jonschlinkert/path-segments)
-* [rewrite-ext](https://www.npmjs.com/package/rewrite-ext): Automatically re-write the destination extension of a filepath based on the source extension. e.g … [more](https://www.npmjs.com/package/rewrite-ext) | [homepage](https://github.com/jonschlinkert/rewrite-ext)
+_By default, if a match is not preceded by a dot, slash, or beginning-of-string, it's not a match._
 
-## Running tests
+```js
+endsWith('/bazqux', 'qux');   //=> false
+endsWith('/baz.qux', 'qux');  //=> true
+endsWith('/baz.qux', '.qux'); //=> true
+endsWith('/qux', 'qux');      //=> true
+endsWith('/qux', '/qux');     //=> true
+```
 
-Install dev dependencies:
+**Enable partial matches**
+
+By passing `true` as the last argument:
+
+```js
+endsWith('foo\\bar\\bazqux', 'qux', true); //=> true
+```
+
+## Other behavior
+
+**returns false when an empty string is given**
+
+```js
+endsWith('foo\\bar\\baz\\', ''); //=> false
+```
+
+**works with unix slashes**
+
+```js
+endsWith('foo/bar/baz/', '/');   //=> true
+endsWith('foo/bar/baz//', '//'); //=> true
+endsWith('foo/bar/baz', '/');    //=> false
+```
+
+**works with windows slashes**
+
+```js
+endsWith('foo\\bar\\baz\\', '/');      //=> true
+endsWith('foo\\bar\\baz\\', '\\');     //=> true
+endsWith('foo\\bar\\baz\\\\', '\\\\'); //=> true
+```
+
+## About
+
+### Related projects
+
+* [contains-path](https://www.npmjs.com/package/contains-path): Return true if a file path contains the given path. | [homepage](https://github.com/jonschlinkert/contains-path "Return true if a file path contains the given path.")
+* [ends-with](https://www.npmjs.com/package/ends-with): Returns `true` if the given `string` or `array` ends with `suffix` using strict equality for… [more](https://github.com/jonschlinkert/ends-with) | [homepage](https://github.com/jonschlinkert/ends-with "Returns `true` if the given `string` or `array` ends with `suffix` using strict equality for comparisons.")
+* [normalize-path](https://www.npmjs.com/package/normalize-path): Normalize file path slashes to be unix-like forward slashes. Also condenses repeat slashes to a… [more](https://github.com/jonschlinkert/normalize-path) | [homepage](https://github.com/jonschlinkert/normalize-path "Normalize file path slashes to be unix-like forward slashes. Also condenses repeat slashes to a single slash and removes and trailing slashes unless disabled.")
+* [unixify](https://www.npmjs.com/package/unixify): Convert Windows file paths to unix paths. | [homepage](https://github.com/jonschlinkert/unixify "Convert Windows file paths to unix paths.")
+
+### Contributing
+
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).
+
+### Building docs
+
+_(This project's readme.md is generated by [verb](https://github.com/verbose/verb-generate-readme), please don't edit the readme directly. Any changes to the readme must be made in the [.verb.md](.verb.md) readme template.)_
+
+To generate the readme, run the following command:
 
 ```sh
-$ npm i -d && npm test
+$ npm install -g verbose/verb#dev verb-generate-readme && verb
 ```
 
-## Contributing
+### Running tests
 
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/jonschlinkert/path-ends-with/issues/new).
+Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:
 
-## Author
+```sh
+$ npm install && npm test
+```
+
+### Author
 
 **Jon Schlinkert**
 
-+ [github/jonschlinkert](https://github.com/jonschlinkert)
-+ [twitter/jonschlinkert](http://twitter.com/jonschlinkert)
+* [github/jonschlinkert](https://github.com/jonschlinkert)
+* [twitter/jonschlinkert](https://twitter.com/jonschlinkert)
 
-## License
+### License
 
-Copyright © 2015 Jon Schlinkert
-Released under the MIT license.
+Copyright © 2017, [Jon Schlinkert](https://github.com/jonschlinkert).
+Released under the [MIT License](LICENSE).
 
 ***
 
-_This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on October 10, 2015._
+_This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.5.0, on April 14, 2017._
