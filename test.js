@@ -17,15 +17,16 @@ describe('endsWith', function() {
   });
 
   it('should work when the path ends with unix slashes', function() {
-    assert(endsWith('foo/bar/baz/', '/'));
-    assert(endsWith('foo/bar/baz//', '//'));
-    assert(!endsWith('foo/bar/baz', '/'));
+    assert(endsWith('foo/bar/baz/', 'baz/'));
+    assert(endsWith('foo/bar/baz//', 'baz//'));
+    assert(!endsWith('foo/bar/baz', 'baz/'));
   });
 
   it('should work when the path ends with windows slashes', function() {
-    assert(endsWith('foo\\bar\\baz\\', '/'));
-    assert(endsWith('foo\\bar\\baz\\', '\\'));
-    assert(endsWith('foo\\bar\\baz\\\\', '\\\\'));
+    assert(endsWith('foo\\bar\\baz\\', 'baz/'));
+    assert(endsWith('foo\\bar\\baz\\', 'baz\\'));
+    assert(endsWith('foo\\bar\\baz\\\\', 'baz\\\\'));
+    assert(!endsWith('foo\\bar\\baz', 'baz\\\\'));
   });
 
   it('should be true when the path ends with a string', function() {
@@ -34,9 +35,16 @@ describe('endsWith', function() {
     assert(endsWith('foo/bar/baz', 'bar/baz'));
     assert(endsWith('foo\\bar\\baz.md', 'baz.md'));
     assert(endsWith('foo\\bar\\baz.md', 'bar/baz.md'));
-    assert(endsWith('foo\\bar\\baz.md', '.md'));
-    assert(endsWith('foo\\bar\\baz.md', 'md'));
     assert(!endsWith('foo\\bar\\baz.md', 'z.md'));
+  });
+
+  it('should be true when the path ends with a file extension', function() {
+    assert(endsWith('foo/bar/baz.md', 'md'));
+    assert(endsWith('foo/bar/baz.md', '.md'));
+    assert(endsWith('foo\\bar\\baz.md', 'md'));
+    assert(endsWith('foo\\bar\\baz.md', '.md'));
+    assert(!endsWith('foo/bar.md/baz', '.md'));
+    assert(!endsWith('foo/.git/baz', '.git'));
   });
 
   it('should be false when the path does not end with the string', function() {
@@ -47,5 +55,13 @@ describe('endsWith', function() {
   it('should be false when the substring is a "partial" match', function() {
     assert(!endsWith('foo\\bar\\bazqux', 'qux'));
     assert(!endsWith('foo\\bar\\baz.md', 'baz'));
+  });
+
+  it('should be false when the value is only slashes', function() {
+    assert(!endsWith('/foo/', '/'));
+    assert(!endsWith('/foo/', '//'));
+    assert(!endsWith('/foo/', '///'));
+    assert(!endsWith('/foo/', '\\\\'));
+    assert(!endsWith('/foo/', '\\'));
   });
 });
