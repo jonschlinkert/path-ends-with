@@ -1,4 +1,4 @@
-# path-ends-with [![NPM version](https://img.shields.io/npm/v/path-ends-with.svg?style=flat)](https://www.npmjs.com/package/path-ends-with) [![NPM monthly downloads](https://img.shields.io/npm/dm/path-ends-with.svg?style=flat)](https://npmjs.org/package/path-ends-with) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/path-ends-with.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/path-ends-with)
+# path-ends-with [![NPM version](https://img.shields.io/npm/v/path-ends-with.svg?style=flat)](https://www.npmjs.com/package/path-ends-with) [![NPM monthly downloads](https://img.shields.io/npm/dm/path-ends-with.svg?style=flat)](https://npmjs.org/package/path-ends-with) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/path-ends-with.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/path-ends-with) [![Windows Build Status](https://img.shields.io/appveyor/ci/jonschlinkert/path-ends-with.svg?style=flat&label=AppVeyor)](https://ci.appveyor.com/project/jonschlinkert/path-ends-with)
 
 > Return `true` if a file path ends with the given string/suffix.
 
