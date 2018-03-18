@@ -12,32 +12,13 @@ Install with [npm](https://www.npmjs.com/):
 $ npm install --save path-ends-with
 ```
 
-Install with [bower](https://bower.io/)
-
-```sh
-$ bower install path-ends-with --save
-```
-
 ## Usage
 
 ```js
-var endsWith = require('path-ends-with');
+const endsWith = require('path-ends-with');
 
-endsWith('foo/bar', 'bar'); //=> true
-endsWith('foo/bar', 'qux'); //=> false
-
-// returns false for partial matches
-endsWith('foobar', 'bar');  //=> false
-endsWith('foo.bar', 'bar'); //=> false
-```
-
-## Negation
-
-Prefix with `!` to invert matching behavior:
-
-```js
-endsWith('foo/bar', '!bar'); //=> false
-endsWith('foo/bar', '!qux'); //=> true
+console.log(endsWith('foobar', 'bar'));  //=> false 
+console.log(endsWith('foo/bar', 'bar')); //=> true
 ```
 
 ## Options
@@ -46,13 +27,15 @@ endsWith('foo/bar', '!qux'); //=> true
 
 **Type**: `boolean`
 
-**Default**: `false`
+**Default**: `undefined`
 
-Disable case sensitivity.
+Enable case sensitivity.
 
 ```js
-endsWith('foo/bar', 'BAR');                 //=> false
-endsWith('foo/bar', 'BAR', {nocase: true}); //=> true
+endsWith('foo/bar', 'BAR');
+//=> false
+endsWith('foo/bar', 'BAR', { nocase: true }); 
+//=> true
 ```
 
 ### options.partialMatch
@@ -61,15 +44,22 @@ endsWith('foo/bar', 'BAR', {nocase: true}); //=> true
 
 **Default**: `false`
 
-Allow "partial" matches:
+Allow matching against part of a path segment.
 
 ```js
-endsWith('foobar', 'bar');                        //=> false                 
-endsWith('foobar', 'bar', {partialMatch: true});  //=> true 
-
-endsWith('foo.bar', 'bar');                       //=> false                 
-endsWith('foo.bar', 'bar', {partialMatch: true}); //=> true 
+endsWith('foobar', 'bar');                          
+//=> false                 
+endsWith('foobar', 'bar', { partialMatch: true });  
+//=> true 
 ```
+
+## Release history
+
+### v2.0
+
+**Breaking changes**
+
+* No longer supports leading `!` as a negation character.
 
 ## About
 
