@@ -19,46 +19,17 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {
-    "ends-with": "^1.0.1",
-    "normalize-path": "^2.1.1"
-  },
   "devDependencies": {
-    "gulp-format-md": "^0.1.12",
-    "mocha": "^3.2.0"
+    "gulp-format-md": "^1.0.0",
+    "mocha": "^3.5.3"
   },
   "keywords": [
-    "directory",
-    "end",
-    "ending",
-    "ends",
-    "ends-with",
-    "file",
-    "filepath",
-    "fp",
-    "match",
-    "matches",
-    "normalize",
     "path",
-    "re",
-    "regex",
-    "regexp",
-    "segment",
-    "slash",
-    "slashes",
-    "suffix",
-    "trailing",
-    "with"
+    "ends-with",
+    "matches",
+    "match"
   ],
   "verb": {
-    "related": {
-      "list": [
-        "contains-path",
-        "ends-with",
-        "normalize-path",
-        "unixify"
-      ]
-    },
     "toc": false,
     "layout": "default",
     "tasks": [
@@ -67,6 +38,14 @@
     "plugins": [
       "gulp-format-md"
     ],
+    "related": {
+      "list": [
+        "contains-path",
+        "ends-with",
+        "normalize-path",
+        "unixify"
+      ]
+    },
     "lint": {
       "reflinks": true
     }

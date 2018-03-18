@@ -1,9 +1,15 @@
+/*!
+ * path-ends-with <https://github.com/jonschlinkert/path-ends-with>
+ *
+ * Copyright (c) 2014-2018, Jon Schlinkert.
+ * Released under the MIT License.
+ */
+
 'use strict';
 
-var endsWith = require('ends-with');
-var normalizePath = require('normalize-path');
+var path = require('path');
 
-module.exports = function pathEndsWith(filepath, substr, options) {
+module.exports = function(filepath, substr, options) {
   if (typeof filepath !== 'string') {
     throw new TypeError('expected filepath to be a string');
   }
@@ -11,66 +17,44 @@ module.exports = function pathEndsWith(filepath, substr, options) {
     throw new TypeError('expected substring to be a string');
   }
 
-  if (substr === '') {
+  if (filepath === '' || substr === '') {
     return false;
   }
 
-  // return true if the given strings are an exact match
   if (filepath === substr) {
     return true;
   }
 
-  if (substr.charAt(0) === '!') {
-    return !pathEndsWith(filepath, substr.slice(1), options);
-  }
-
-  options = options || {};
-  if (options.nocase === true) {
+  if (options && options.nocase === true) {
     filepath = filepath.toLowerCase();
     substr = substr.toLowerCase();
   }
 
-  var str = normalize(substr, false);
-
-  // return false if the normalized substring is only a slash
-  if (str === '/') {
-    return false;
+  if (substr[0] === '/' || substr[0] === '\\') {
+    return startsWith(filepath, substr);
   }
 
-  var fp = normalize(filepath, false);
+  var a = filepath.split(/[\\/]+/);
+  var b = substr.split(/[\\/]+/);
 
-  // return true if normalized strings are an exact match
-  if (fp === str) {
-    return true;
+  if (options && options.partialMatch === true) {
+    return startsWith(a.join('/'), b.join('/'));
   }
 
-  if (endsWith(fp, str)) {
-    if (options.partialMatch === true) {
-      return true;
+  if (b.length === 1) {
+    var last = a[a.length - 1];
+    var ext = path.extname(last);
+    return last === substr || ext === substr || ext.slice(1) === substr;
+  }
+
+  while (b.length && a.length) {
+    if (b.pop() !== a.pop()) {
+      return false;
     }
-
-    // if the first character in the substring is a
-    // dot or slash, we can consider this a match
-    var ch = str.charAt(0);
-    if (ch === '.' || ch === '/') {
-      return true;
-    }
-
-    // since partial matches were not enabled, we can
-    // only consider this a match if the next character
-    // is a dot or a slash
-    var idx = fp.length - str.length;
-    var next = fp.charAt(idx - 1);
-    return next === '.' || next === '/';
   }
-
-  return false;
+  return true;
 };
 
-function normalize(str) {
-  str = normalizePath(str, false);
-  if (str.slice(0, 2) === './') {
-    str = str.slice(2);
-  }
-  return str;
+function startsWith(a, b) {
+  return a.slice(-b.length) === b;
 }

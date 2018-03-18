@@ -1,19 +1,14 @@
 'use strict';
 
-/*!
- * path-ends-with <https://github.com/jonschlinkert/path-ends-with>
- *
- * Copyright (c) 2014, 2017, Jon Schlinkert.
- * Released under the MIT License.
- */
-
 require('mocha');
 var assert = require('assert');
 var endsWith = require('./');
 
 describe('endsWith', function() {
-  it('should be false when the given substring is an empty string', function() {
+  it('should be false when the substring or filepath are empty strings', function() {
     assert(!endsWith('foo\\bar\\baz\\', ''));
+    assert(!endsWith('', 'foo\\bar\\baz\\'));
+    assert(!endsWith('', ''));
   });
 
   it('should work when the path ends with unix slashes', function() {
@@ -30,7 +25,10 @@ describe('endsWith', function() {
   });
 
   it('should be true when the path ends with a string', function() {
-    assert(endsWith('foo/bar/baz', 'baz'));
+    assert(endsWith('foo/bar/baz.js', '/baz.js'));
+    assert(endsWith('foo/bar/baz.js', '/bar/baz.js'));
+    assert(endsWith('foo/bar/baz.js', 'baz.js'));
+    assert(endsWith('foo/bar/baz.js', 'bar/baz.js'));
     assert(endsWith('foo/bar/baz', '/baz'));
     assert(endsWith('foo/bar/baz', 'bar/baz'));
     assert(endsWith('foo\\bar\\baz.md', 'baz.md'));
@@ -55,10 +53,28 @@ describe('endsWith', function() {
   it('should be false when the substring is a "partial" match', function() {
     assert(!endsWith('foo\\bar\\bazqux', 'qux'));
     assert(!endsWith('foo\\bar\\baz.md', 'baz'));
+    assert(!endsWith('foo\\bar\\baz.md', 'r\\baz.md'));
+    assert(endsWith('foo\\bar\\bazqux', 'qux', { partialMatch: true }));
+    assert(endsWith('foo\\bar\\baz.md', 'r\\baz.md', { partialMatch: true }));
+    assert(endsWith('foo\\bar\\baz.md', 'r/baz.md', { partialMatch: true }));
   });
 
-  it('should be false when the value is only slashes', function() {
-    assert(!endsWith('/foo/', '/'));
+  it('should be case sensitive by default', function() {
+    assert(!endsWith('foo/bar', 'BAR'));
+    assert(!endsWith('foo/bar/baz', 'BAR/baz'));
+  });
+
+  it('should not be case sensitive when options.nocase is true', function() {
+    assert(endsWith('foo/bar', 'BAR', { nocase: true }));
+    assert(endsWith('foo/bar/baz', 'BAR/baz', { nocase: true }));
+  });
+
+  it('should correctly handle trailing slashes', function() {
+    assert(endsWith('/foo/', '/'));
+    assert(endsWith('/foo/', '/foo/'));
+    assert(!endsWith('/foo', '/'));
+    assert(!endsWith('/foo', 'foo/'));
+    assert(!endsWith('/foo', '/foo/'));
     assert(!endsWith('/foo/', '//'));
     assert(!endsWith('/foo/', '///'));
     assert(!endsWith('/foo/', '\\\\'));
